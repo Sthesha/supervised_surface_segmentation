@@ -1,0 +1,1 @@
+{"kor kor": ["ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"kor\"))) (OneChunk (Symb_Chunker (Symb_Chunk (MkSymb \"kor\")))))", "ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"kor\"))) (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"kor\"))) (OneChunk (NP_Chunker (NP_Nom_Chunk (UsePron (ProDrop they10_Pron)))))))"]}

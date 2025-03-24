@@ -1,0 +1,1 @@
+{"fnbrochurez txtfn": ["ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"fnbrochurez\"))) (OneChunk (Symb_Chunker (Symb_Chunk (MkSymb \"txtfn\")))))", "ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"fnbrochurez\"))) (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"txtfn\"))) (OneChunk (NP_Chunker (NP_Nom_Chunk (UsePron (ProDrop they10_Pron)))))))"]}

@@ -1,0 +1,1 @@
+{"africa report": ["ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"africa\"))) (OneChunk (Symb_Chunker (Symb_Chunk (MkSymb \"report\")))))", "ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"africa\"))) (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"report\"))) (OneChunk (NP_Chunker (NP_Nom_Chunk (UsePron (ProDrop they10_Pron)))))))"]}

@@ -1,0 +1,1 @@
+{"math isamb": ["ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"math\"))) (OneChunk (Symb_Chunker (Symb_Chunk (MkSymb \"isamb\")))))", "ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"math\"))) (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"isamb\"))) (OneChunk (NP_Chunker (NP_Nom_Chunk (UsePron (ProDrop they10_Pron)))))))"]}

@@ -1,0 +1,1 @@
+{"yini eyenzekayo": ["ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"yini\"))) (OneChunk (Symb_Chunker (Symb_Chunk (MkSymb \"eyenzekayo\")))))", "ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"yini\"))) (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"eyenzekayo\"))) (OneChunk (NP_Chunker (NP_Nom_Chunk (UsePron (ProDrop they4_Pron)))))))"]}

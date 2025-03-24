@@ -1,0 +1,1 @@
+{"inlsa uwiseman": ["ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"inlsa\"))) (OneChunk (Symb_Chunker (Symb_Chunk (MkSymb \"uwiseman\")))))", "ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"inlsa\"))) (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"uwiseman\"))) (OneChunk (NP_Chunker (NP_Nom_Chunk (UsePron (ProDrop they10_Pron)))))))"]}

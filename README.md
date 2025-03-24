@@ -1,1 +1,0 @@
-# supervised_surface_segmentation

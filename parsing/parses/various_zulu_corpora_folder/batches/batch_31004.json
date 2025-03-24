@@ -1,0 +1,1 @@
+{"ku no": ["ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"ku\"))) (OneChunk (Symb_Chunker (Symb_Chunk (MkSymb \"no\")))))", "ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"ku\"))) (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"no\"))) (OneChunk (NP_Chunker (NP_Nom_Chunk (UsePron (ProDrop they10_Pron)))))))"]}

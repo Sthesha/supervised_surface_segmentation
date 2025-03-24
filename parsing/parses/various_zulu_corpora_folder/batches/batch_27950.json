@@ -1,0 +1,1 @@
+{"nanzelela kueksodusi": ["ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"nanzelela\"))) (OneChunk (Symb_Chunker (Symb_Chunk (MkSymb \"kueksodusi\")))))", "ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"nanzelela\"))) (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"kueksodusi\"))) (OneChunk (NP_Chunker (NP_Nom_Chunk (UsePron (ProDrop they10_Pron)))))))"]}

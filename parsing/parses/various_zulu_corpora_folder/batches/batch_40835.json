@@ -1,0 +1,1 @@
+{"oomen p": ["ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"oomen\"))) (OneChunk (Symb_Chunker (Symb_Chunk (MkSymb \"p\")))))", "ChunkPhr (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"oomen\"))) (PlusChunk (Symb_Chunker (Symb_Chunk (MkSymb \"p\"))) (OneChunk (NP_Chunker (NP_Nom_Chunk (UsePron (ProDrop they10_Pron)))))))"]}
