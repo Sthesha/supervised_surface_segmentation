@@ -1,0 +1,17 @@
+=== Morphological Segmentation Evaluation Results TRANSFORMER V2 - segmenter_three ===
+
+Position-sensitive scores:
+Precision: 0.929
+Recall: 0.926
+F1: 0.928
+
+BLEU Scores:
+Unigram only: 0.9483
+Bigram only: 0.9172
+Equal weights: 0.9326
+Simple scores: 0.7077
+
+Sacre BLEU Score: 0.0000
+Sacre chrF Score: 100.0000
+
+chrF Score: 0.9656

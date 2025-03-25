@@ -1,0 +1,22 @@
+# Core NLP Libraries
+nltk==3.8.1           # Natural Language Toolkit
+spacy==3.6.1          # Industrial-strength NLP
+gensim==4.3.0         # Topic modeling and vectorization
+scikit-learn==1.3.0   # Machine learning for NLP tasks
+
+# Deep Learning Libraries
+#torch==2.0.1          # PyTorch
+#transformers==4.36.1  # Hugging Face Transformers for state-of-the-art models
+
+# Data Processing
+pandas==2.1.0         # Data manipulation and analysis
+numpy==1.24.0         # Numerical operations
+
+# Utilities
+tqdm==4.66.0          # Progress bar for loops
+regex==2023.8.8       # Regular expressions for text processing
+flask==3.0.0          # Lightweight web framework for deployment
+
+# Optional
+fastapi==0.100.0      # Alternative web framework for deployment
+uvicorn==0.30.0       # ASGI server for FastAPI
