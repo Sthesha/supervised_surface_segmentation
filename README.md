@@ -1,6 +1,6 @@
 # isiZulu Grammar-Based Morphological Segmentation and Translation Pipeline
 
-## Note on File Storage
+## IMPORTANT NOTICE on File Storage (11GB)
 
 > **GitHub has a strict 100MB file limit.**  
 > Therefore, **Kaggle** is used to store all complete resources, including:
