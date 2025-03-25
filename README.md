@@ -1,163 +1,102 @@
-# isiZulu Grammar Parsing and Linearization Pipeline
+# isiZulu Grammar-Based Morphological Segmentation and Translation Pipeline
 
-This project provides a complete end-to-end pipeline for **processing isiZulu sentences**, parsing them into abstract syntax trees using a **GF-based grammar**, performing **tree transformations** (augmentation), and **linearizing** the resulting trees with multiple grammars for downstream NLP tasks.
-
----
-
-## Project Structure
-
-```
-parsing/
-│
-├── corpora/                        # Original JSON corpora (e.g. grouped_cleaned_output.json)
-├── data_folder/                   # Intermediate CSVs and final outputs (valid/invalid segmentations)
-├── grammars/                      # PGF grammar files (ZMLargeExtChunk*.pgf)
-├── parses/
-│   └── various_zulu_corpora_folder/  # Stores batches, augmented, linearized, and consolidated outputs
-│
-├── python_scripts/                # All Python scripts
-│   ├── batch_json_sentences.py
-│   ├── parallel_parser.py
-│   ├── consolidate_parses.py
-│   ├── linguistic_tree_augmenter.py
-│   ├── linearise_with_grammars.py
-│   ├── validate_segmentations.py
-│   └── get_sub_trees.py
-│
-├── bash_scripts/                  # Bash automation scripts
-│   ├── parse_json.sh              # Parsing pipeline
-│   └── data_generation.sh         # Tree augmentation + linearization pipeline
-│
-└── logs/                          # Log files created during tree linearization
-```
+This project provides a complete pipeline for generating linguistically-informed segmentation data from isiZulu sentences and training various machine learning models (CRF, LSTM, Transformer) for morphological segmentation. The pipeline further extends to translation tasks, where the transformer-based segmentation model is leveraged to build data-driven translation systems.
 
 ---
 
-## ⚙️ Step-by-Step Overview
+## Part 1: Data Generation Pipeline (Parsing & Linearization)
 
----
+We use a GF-based grammar to parse isiZulu sentences into abstract syntax trees and linearize them into segmented forms. Two Bash scripts automate the data generation:
 
-### Step 1: **Prepare Sentence Batches from JSON**
+### Step 1: Parse isiZulu Sentences (parsing folder)
 
-Input: `grouped_cleaned_output.json`
+Run inside the Docker container:
 
-```bash
-python3 python_scripts/batch_json_sentences.py \
-  corpora/grouped_cleaned_output.json \
-  parses/various_zulu_corpora_folder \
-  -s 5 \
-  -n 100
-```
-
-- Extracts up to 100 sentences per category
-- Writes them into `.txt` files
-- Batches the sentences into groups of 5
-
----
-
-### Step 2: **Parse the Batches to Generate Trees**
-
-Run parsing inside Docker using the grammar:
+The folder for parsing has multiple items: bash and python scripts, grammars, and corpora used to parse and linearise to generate data.
 
 ```bash
 bash bash_scripts/parse_json.sh
 ```
+This will:
+- Batch and parse isiZulu sentences from `various_zulu_corpora_folder.json`
+- Save parsed trees to `parses/various_zulu_corpora_folder/batches/*.json`
+- These JSON files are consolidated into one big JSON file and text file.
+- The final file here is a CSV file that contains sentences and their two respective abstract syntax trees.
 
-This runs:
-- `parallel_parser.py` on each batch
-- Saves outputs in: `parses/various_zulu_corpora_folder/batches/*.json`
-
----
-
-### Step 3: **Consolidate Parsed Batches**
-
-```bash
-python3 python_scripts/combine_batches.py \
-  grouped_cleaned_output \
-  parses/various_zulu_corpora_folder/batches \
-  parses/various_zulu_corpora_folder
-```
-
-- Combines multiple `batch_*.json` files into a single JSON file:
-  ```
-  parses/various_zulu_corpora_folder/grouped_cleaned_output.json
-  ```
-
----
-
-### Step 4: **Extract Subtrees and Trees to Augment**
-
+### Step 2: Augment and Linearize Trees
 ```bash
 bash bash_scripts/data_generation.sh
 ```
+This script performs:
+1. Subtree extraction from parsed trees, to get useful subtrees that do not contain `MkSymb`, which indicates a word that could not be parsed.
+2. These trees undergo augmentation by changing different syntactic and lexical items. See Python script: `linguistic_tree_augmenter.py`
+3. Both the augmented trees and the original subtrees undergo linearization using multiple grammars (Lin A, Lin B and Lin C). See: `linearise_with_grammars.py`
+4. Validation of outputs: since some grammars may fail to parse a token, each generated linearised token is validated to ensure only those linearised by all three grammars are kept.
 
-This pipeline performs:
-1. **Sub-tree Extraction**: From `sentences_and_trees.csv`
-2. **Tree Augmentation**: Generates morpheme-level variations
-3. **Tree Linearization**: Linearizes all augmented trees using multiple grammars
-4. **Validation**: Verifies valid vs invalid segmentations
+### Output Summary:
+- `augmented_trees.txt`: Raw GF trees for augmented sentences
+- `valid_augmented_and_linearised.csv`: Clean, valid surface forms
+- `valid_unaugmented_and_linearised.csv`: Linearized original parses
 
----
-
-## 🔍 Scripts Summary
-
-| Script | Description |
-|--------|-------------|
-| `batch_json_sentences.py` | Reads JSON and splits sentences into batches |
-| `parallel_parser.py` | Parses batch `.txt` files into GF abstract syntax trees |
-| `combine_batches.py` | Merges `batch_*.json` into a single JSON |
-| `get_sub_trees.py` | Extracts a specific column of trees for augmentation |
-| `linguistic_tree_augmenter.py` | Generates variations of trees by changing polarity, tense, nouns, etc. |
-| `linearise_with_grammars.py` | Linearizes trees using 1–4 grammars in parallel |
-| `validate_segmentations.py` | Filters invalid segmentations from linearized results |
+These outputs serve as training data for morphological segmentation models.
 
 ---
 
-## ⚡ Example Output
+## Part 2: Segmentation Model Training (CRF, LSTM, Transformer) (segmentation-models)
 
-- `augmented_trees.txt`: Raw GF trees (828+)
-- `augmented_and_linearised.csv`: Linearized surface forms
-- `valid_augmented_and_linearised.csv`: Valid segmentations
-- `invalid_augmented_and_linearised.csv`: Invalid segmentations (for analysis)
-- Logs in `logs/tree_processing_*.log`
+### Models Trained:
+1. Conditional Random Field (CRF)
+2. LSTM-based Segmenter
+3. Transformer-based Segmenter
+
+Each model is trained on both:
+- Unaugmented data: Derived from the original GF parses
+- Augmented data: Created through linguistic transformation and linearization
+
+### Input Data:
+- `valid_augmented_and_linearised.csv`
+- `valid_unaugmented_and_linearised.csv`
+
+Each CSV contains segmented surface forms at morpheme-level granularity, suitable for supervised training.
+
+The `segmentation-models` folder contains three models, each implemented in Jupyter notebooks that can be used to train supervised surface segmentation models. These notebooks also support evaluation of trained models. In each file, results and outputs generated by the models are saved. Users can evaluate using pre-generated data with the `generate_from_file()` method or run training and evaluation from scratch with custom data. External validation data is also supported.
+
+The parent folder contains a summary of results provided in both `.md` and `.txt` formats.
 
 ---
 
-## 🐳 Docker Container
+## Part 3: Translation System Training (translation-models)
 
-Make sure all scripts are run inside the `parallel_parsing` Docker container:
+The Transformer-based segmentation model is integrated into a machine translation pipeline:
 
+1. Segment isiZulu input using the trained Transformer model, as part of the tokenization strategy
+2. Perform translation in both directions (isiZulu to English and vice versa)
+3. The primary direction investigated is isiZulu to English; the reverse is included for comparison
+4. Train translation models using the provided Jupyter notebook: `training_translation_models.ipynb`
+5. Evaluate different models using: `evalauate_all_models.ipynb`
+
+This segmentation step significantly improves translation quality by helping the model understand agglutinative morphology.
+
+---
+
+## Docker and System Requirements
+
+Run all scripts inside the `parallel_parsing` Docker container:
 ```bash
 docker exec -it parallel_parsing bash
 ```
 
-To copy output back:
-
-```bash
-docker cp parallel_parsing:/root/cnlp/parsing/parsing/parses/various_zulu_corpora_folder .
-```
-
----
-
-## 🚀 System Requirements
-
-- At least **32GB RAM** for larger batches
-- 50+ cores for high-performance tree linearization
-- [GF (Grammatical Framework)](https://www.grammaticalframework.org/) installed and compiled grammars
+Recommended specifications:
+- 64GB+ RAM
+- 8+ CPU cores for fast tree linearization
 - Python 3.8+
-- Docker (for reproducibility)
+- GF grammars compiled in `grammars/` (PGF)
+- PyTorch
 
 ---
 
-## 📌 Tips
-
-- Adjust `CHUNK_SIZE`, `TIMEOUT`, `NUM_CORES` for performance tuning
-- Always validate augmented results using `validate_segmentations.py`
-- Clean logs regularly if debugging is disabled
-
----
-
-##  Maintainer
-
+## Maintainer
 **Sthembiso Mkhwanazi**  
-Researcher in NLP for low-resource African languages  
+NLP Researcher for Low-Resource African Languages  
+Email: sithesham at gmail dot com
+
