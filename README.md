@@ -1,5 +1,21 @@
 # isiZulu Grammar-Based Morphological Segmentation and Translation Pipeline
 
+## Note on File Storage
+
+> **GitHub has a strict 100MB file limit.**  
+> Therefore, **Kaggle** is used to store all complete resources, including:
+> - Training and validation data  
+> - All trained models  
+> - Outputs and evaluation results  
+> - The complete code base  
+> 
+> **Access the full dataset and project**:  
+> [Kaggle Dataset (Supervised Surface Segmentation)](https://www.kaggle.com/datasets/spikemayor/supervised-surface-segmentation)
+
+---
+
+# isiZulu Grammar-Based Morphological Segmentation and Translation Pipeline
+
 This project provides a complete pipeline for generating linguistically-informed segmentation data from isiZulu sentences and training various machine learning models (CRF, LSTM, Transformer) for morphological segmentation. The pipeline further extends to translation tasks, where the transformer-based segmentation model is leveraged to build data-driven translation systems.
 
 ---
