@@ -1,0 +1,10 @@
+__pycache__
+*.pt
+*.json
+runs/
+weights/
+events.out.tfevents.*
+wandb/
+models*
+data
+original*
